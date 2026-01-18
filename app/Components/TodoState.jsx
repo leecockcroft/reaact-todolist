@@ -4,6 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import TodoContent from "./TodoContent.jsx"
 import TodoInput from './TodoInput.jsx'
+
 export default function TodoState() {
 
 // create input and button.
@@ -23,12 +24,17 @@ export default function TodoState() {
 //delete 
 
 const [todoData,setTodoData]=useState([])  // main data
+
+const [editModeKey,setEditModeKey]=useState(-1)
+
+
 const [inputValues,SetInputValues]=useState({
-mainInput:"" // original input value
+mainInput:"",
+editedValue:"" // original input value
 
 })
 
-
+const [indexKey,setIndexKey]=useState(0)
 
 
 /*  MAIN TODO INPUT */
@@ -37,14 +43,48 @@ const getTextForTodo = (e)=>{
 
 }
  /* submits data to list */
- 
-const submitTodoItem = ()=>{
-  setTodoData( prev => [...todoData,inputValues.mainInput])
 
+const submitTodoItem = ()=>{
+  setTodoData( prev => [...prev,{id:indexKey,name:inputValues.mainInput}])
+  setIndexKey(indexKey+1)
+console.log(todoData)
 }
 
 
 /* END MAIN TODO INPUT  */
+
+
+/* EDIT TODO MODE */
+
+const editToDOInput = (index)=>{
+console.log(index)
+  todoData.map(item => {
+    
+    if(editModeKey  === index ){
+          setChangeBoo({editMode:!changeBoo.editMode}) 
+          console.log(item.id,index)
+      
+    }
+    else{
+  
+    }
+    
+  })
+
+
+
+
+
+  
+ 
+}
+
+const editedToDoValue = (e)=>{
+
+  SetInputValues(prev => ({ ...prev, mainInput:e.target.value}))
+
+
+}
 
 
   return (
@@ -52,7 +92,14 @@ const submitTodoItem = ()=>{
        <h1> Todo List</h1>
       <TodoInput getTextForTodo={getTextForTodo} 
                   submitTodoItem={submitTodoItem}/>
-      <TodoContent todoData={todoData} />
+
+      <TodoContent todoData={todoData}
+              editToDOInput={editToDOInput}
+              editModeKey={editModeKey} 
+              editedToDoValue={editedToDoValue}
+              
+              />
+              
     </main>
   );
 }

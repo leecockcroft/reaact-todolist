@@ -1,15 +1,36 @@
-export default function Page({ todoData }) {
+export default function Page({ todoData,editToDOInput,editModeKey,editedToDoValue}) {
 
   return (
     <main>
-      {todoData && todoData.length > 0 ? todoData.map((item,index)=><p key={index}>{item}</p> )
-      : <p>nothing for today</p>
+      <ul>
+{ todoData && todoData.length > 0 ?  todoData.map( (item,index) =>  (
+
+  <li key={item.id}> 
+    { item.id === editModeKey ? 
     
-    
-     // end cof map
+    (<> <input type="text" onBlur={editToDOInput}  autoFocus onChange={editedToDoValue}/>
+       <button> Save</button> </>) 
+       
+       
+       : 
+       (  <>   {item.name}
+        <button  className="rounded-sm bg-[green] px-2 py-1 text-sm font-semibold text-white hover:bg-indigo-500/30" >Save</button>
+        <button  className="rounded-sm bg-indigo-500/20 px-2 py-1 text-sm font-semibold text-blackhover:bg-indigo-500/30" onClick={()=>editToDOInput(index)}>Edit</button>
+        <button  className="rounded-sm bg-[red] px-2 py-1 text-sm font-semibold text-white hover:bg-indigo-500/30" >Delete</button> 
+       </>
+       )  
+}
+       
+        </li> 
+       
+      )) : <p>no list</p>
     
     }
+    
+    
+    
 
+   </ul>
     </main>
   );
 
