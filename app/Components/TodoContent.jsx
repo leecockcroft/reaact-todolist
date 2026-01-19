@@ -4,7 +4,9 @@ export default function Page({
   editModeKey,
   editedToDoValue,
   editTempValue,
-  saveEdits
+  saveEdits,
+  cancelEdit,
+  deleteTodo
 }) {
 
   return (
@@ -21,14 +23,16 @@ export default function Page({
           onChange={editedToDoValue}  
           value={editTempValue}/>
           
-       <button onClick={()=>saveEdits(item.id)}> Save</button> </>) 
+       <button onClick={()=>saveEdits(item.id)}> Save</button> 
+        <button onClick={cancelEdit}> cancel</button> 
+       </>) 
        
        
        : 
        (  <>   {item.name}
 
         <button  className="rounded-sm bg-indigo-500/20 px-2 py-1 text-sm font-semibold text-blackhover:bg-indigo-500/30" onClick={()=>editToDOInput(item.id)}>Edit</button>
-        <button  className="rounded-sm bg-[red] px-2 py-1 text-sm font-semibold text-white hover:bg-indigo-500/30" >Delete</button> 
+        <button  className="rounded-sm bg-[red] px-2 py-1 text-sm font-semibold text-white hover:bg-indigo-500/30"  onClick={()=>deleteTodo(item.id)}>Delete</button> 
        </>
        )  
 }

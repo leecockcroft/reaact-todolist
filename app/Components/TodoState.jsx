@@ -81,6 +81,24 @@ const editedToDoValue = (e)=>{
 
 }
 
+const cancelEdit = ()=>{
+setEditModeKey(-1)
+
+
+}
+
+
+/*** DELETE TODO */
+
+const deleteTodo = (id)=>{
+
+setTodoData(todoData.filter((item)=>{
+
+return item.id !== id
+
+}))
+
+}
 
   return (
     <main>
@@ -94,6 +112,8 @@ const editedToDoValue = (e)=>{
               editedToDoValue={editedToDoValue}
               editTempValue={editTempValue}
               saveEdits={saveEdits}
+              cancelEdit={cancelEdit}
+              deleteTodo={deleteTodo}
               
               />
               
